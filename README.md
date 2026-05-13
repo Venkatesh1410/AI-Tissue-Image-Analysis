@@ -16,7 +16,11 @@ The methodology focuses on extracting meaningful texture, color, and structural 
 - Machine Learning classification
 
 ---
+## Workflow
 
+![Workflow](docs/images/workflow.png)
+
+---
 ## Key Features
 
 - Patch-based tissue analysis

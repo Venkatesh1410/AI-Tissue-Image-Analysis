@@ -1,0 +1,145 @@
+# Patch-Based Tissue Image Analysis Methodology
+
+## Overview
+
+The final methodology adopts a patch-based Computer Vision framework for gross breast tissue analysis using handcrafted feature engineering and machine learning classification.
+
+Instead of relying on direct tumor segmentation, the tissue image is divided into smaller overlapping patches, allowing localized texture and color analysis.
+
+This approach improves robustness against heterogeneous tissue structures and inconsistent tumor boundaries.
+
+---
+
+## Step 1 — Data Collection
+
+Digital photographs of breast tissue samples were collected under normal clinical lighting conditions.
+
+The dataset included:
+- Cancerous tissue
+- Non-cancerous tissue
+- Phyllodes tissue
+
+Images contained clinical background artifacts such as trays and cloth, requiring preprocessing before analysis.
+
+---
+
+## Step 2 — Background Removal
+
+Background segmentation was performed using GrabCut segmentation.
+
+Morphological operations were applied to:
+- remove small artifacts
+- fill gaps
+- create continuous tissue regions
+
+This ensured that feature extraction was performed only on biologically relevant tissue regions.
+
+---
+
+## Step 3 — ROI Extraction
+
+To reduce unnecessary computation and emphasize clinically relevant regions, the methodology focused on the central 80–90% Region of Interest (ROI) of the tissue sample.
+
+This minimized:
+- edge artifacts
+- lighting inconsistencies
+- irrelevant tissue boundaries
+
+---
+
+## Step 4 — Patch Extraction
+
+Each ROI image was divided into multiple overlapping image patches.
+
+The overlapping strategy ensured that:
+- small tissue details were preserved
+- important cellular structures were not lost at patch boundaries
+
+Approximately 77 overlapping patches were generated per tissue image.
+
+This patch-based representation improved local feature capture and increased effective training data size.
+
+---
+
+## Step 5 — Feature Engineering
+
+### Texture Features
+
+Texture analysis was performed using:
+
+#### Gray Level Co-occurrence Matrix (GLCM)
+Extracted features:
+- Contrast
+- Dissimilarity
+- Homogeneity
+- Energy
+- Correlation
+- ASM
+
+#### Local Binary Pattern (LBP)
+LBP was used to capture localized texture irregularities and neighborhood intensity variations.
+
+#### Shannon Entropy
+Entropy analysis quantified randomness and complexity within tissue regions.
+
+---
+
+### Color Features
+
+Color-based analysis was performed using:
+
+#### HSV Color Space
+Features:
+- Hue Mean
+- Saturation Mean
+- Value Mean
+- HSV Standard Deviations
+
+#### LAB Color Space
+LAB analysis captured:
+- brightness variations
+- yellow-blue distribution
+- tissue lightness patterns
+
+---
+
+## Step 6 — Feature Normalization
+
+Extracted features existed on different numerical scales.
+
+Normalization was applied to:
+- standardize feature distributions
+- prevent dominance of high-magnitude features
+- improve ML model stability
+
+---
+
+## Step 7 — Machine Learning Classification
+
+The normalized feature vectors were used for supervised classification of:
+- cancerous tissue
+- non-cancerous tissue
+
+The patch-based approach allowed the classifier to analyze localized tissue variations more effectively than direct segmentation methods.
+
+---
+
+## Step 8 — Model Evaluation
+
+Model performance was evaluated using:
+- Confusion Matrix
+- True Positive analysis
+- False Positive analysis
+- False Negative analysis
+
+The methodology demonstrated promising classification capability with strong sensitivity toward cancer tissue detection.
+
+---
+
+## Key Advantages of Patch-Based Methodology
+
+- Better robustness against heterogeneous tissue structures
+- Improved local texture representation
+- Reduced dependence on exact tumor boundaries
+- Enhanced feature diversity
+- Improved interpretability compared to black-box approaches

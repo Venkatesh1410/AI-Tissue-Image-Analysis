@@ -1,0 +1,89 @@
+## Initial Approach — Direct Tumor Segmentation
+
+The initial methodology focused on directly detecting and isolating tumor regions from gross breast tissue images using color-based segmentation and thresholding techniques.
+
+### Step 1 — Image Acquisition
+Digital photographs of excised breast tissue samples were collected under normal clinical lighting conditions. The dataset included:
+- Cancerous tissue
+- Non-cancerous tissue
+- Phyllodes tissue
+
+The raw images contained background objects such as trays, cloth, and surgical surroundings.
+
+---
+
+### Step 2 — Background Removal
+
+To isolate the tissue specimen from surrounding noise, GrabCut segmentation was applied.
+
+Post-processing operations included:
+- Morphological opening
+- Morphological closing
+- Noise removal
+- Gap filling
+
+This produced a cleaner tissue-only image for analysis.
+
+---
+
+### Step 3 — Tumor Detection using Color-Space Analysis
+
+The tissue region was analyzed using:
+- HSV color space
+- LAB color space
+
+The algorithm attempted to identify tumor regions using:
+- High brightness regions
+- Low saturation values
+- Non-yellow tissue characteristics
+
+The central region of the tissue specimen was prioritized to reduce edge artifacts and lighting inconsistencies.
+
+---
+
+### Step 4 — Tumor Segmentation
+
+Detected tumor regions were converted into binary masks.
+
+Small noisy regions were removed using connected-component filtering to retain only significant tissue regions.
+
+---
+
+### Step 5 — Feature Extraction
+
+Features extracted from the segmented tumor regions included:
+
+#### Shape Features
+- Area
+- Perimeter
+- Circularity
+- Aspect Ratio
+- Solidity
+
+#### Color Features
+- Mean RGB values
+- Mean HSV values
+
+#### Texture Features
+GLCM-based texture analysis:
+- Contrast
+- Dissimilarity
+- Homogeneity
+- Energy
+- Correlation
+- ASM
+
+---
+
+## Limitation of Initial Approach
+
+The segmentation-based methodology proved unreliable because cancerous tissue did not exhibit consistent:
+- color
+- shape
+- boundary structure
+
+Benign tissues such as fat and fibrous regions often visually resembled malignant tissue, leading to frequent false detections.
+
+Due to these inconsistencies, direct segmentation failed to robustly isolate tumor regions across different samples.
+
+This limitation motivated the transition toward a patch-based feature engineering methodology.
